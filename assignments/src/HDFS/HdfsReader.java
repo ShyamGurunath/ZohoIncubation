@@ -31,9 +31,9 @@ public class HdfsReader implements Runnable {
 
             try {
                 // File path
-                String fileName = "output"+this.threadNumber+".txt";
+                String fileName = "output"+".txt";
 
-                Path hdfsReadPath = new Path(fileSystem.getHomeDirectory()+"/"+fileName);
+                Path hdfsReadPath = new Path(fileSystem.getHomeDirectory()+"/shyam/"+fileName);
                 //Initialize HDFS input stream
                 FSDataInputStream inputStream = fileSystem.open(hdfsReadPath);
                 BufferedReader bufferedReader = new BufferedReader(
