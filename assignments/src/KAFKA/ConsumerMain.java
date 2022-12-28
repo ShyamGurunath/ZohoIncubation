@@ -10,16 +10,16 @@ public class ConsumerMain {
         // Constants
         String consumerGroup1 = "GROUP-5-Consumers";
 
-        String consumerGroup2 = "GROUP-7-Consumers";
+        //String consumerGroup2 = "GROUP-7-Consumers";
 
 
         // Given Partition
 
         // CASE 1 - 1 topic - 2 partition - 1 - consumer Group with 2 consumers
-        List<Integer> consumers = Arrays.asList(1,2);
+        List<Integer> consumers = Arrays.asList(1);
 
         consumers.stream().forEach((c) -> {
-            Consumer consumer = new Consumer(c,"sample1",Arrays.asList(0,2),consumerGroup1);
+            Consumer consumer = new Consumer(c,"sample6",Arrays.asList(0,1),consumerGroup1);
             Thread consumerThread = new Thread(consumer);
             consumerThread.start();
         });

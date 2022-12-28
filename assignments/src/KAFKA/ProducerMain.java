@@ -8,8 +8,6 @@ public class ProducerMain {
     public static void main(String[] args) {
 
 
-        List<Integer> producers = Arrays.asList(1,2,3);
-
         // Topic - Sample
 //        producers.stream().forEach((p) -> {
 //            Producer producer = new Producer(p,"sample",0);
@@ -22,11 +20,17 @@ public class ProducerMain {
 //            producer.run();
 //        });
 
-        // Topic - Sample2
-        producers.stream().forEach((p) -> {
-            Producer producer = new Producer(p,"sample2",0);
-            producer.run();
-        });
+        // SYNC SEND Topic - Sample4
+
+            Producer producer = new Producer(1,"sample6",0, ProducerTypes.
+
+                    ASYNC,10
+            );
+            Thread producerThread = new Thread(producer);
+            producerThread.start();
+
+
+
 
     }
 }

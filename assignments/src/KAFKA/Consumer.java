@@ -28,7 +28,7 @@ public class Consumer implements Runnable {
         this._consmerGroup = consmerGroup;
         this.topic = topic;
         this.partitions = partitions;
-        this._consumerProperties = KafkaDriver.consumerProperties(this._consmerGroup);
+        this._consumerProperties = new KafkaDriver().consumerProperties(consmerGroup);
         System.out.println("I am a Kafka Consumer with Thread - "+this._threadNumber);
     }
 
@@ -65,17 +65,17 @@ public class Consumer implements Runnable {
                 ConsumerRecords<String, String> records =
                         consumer.poll(Duration.ofMillis(100));
                 for (ConsumerRecord<String, String> record : records) {
-                    System.out.println("Consumer - "+ this._threadNumber+"Key: " + record.key() + ", Value: " + record.value());
-                    System.out.println("Consumer - "+ this._threadNumber+"Partition: " + record.partition() + ", Offset:" + record.offset());
+                    System.out.println("Consumer - "+ this._threadNumber+" Key: " + record.key() + ", Value: " + record.value());
+                    System.out.println("Consumer - "+ this._threadNumber+" Partition: " + record.partition() + ", Offset:" + record.offset());
                 }
                 consumer.commitAsync();
             }
 
         } catch (WakeupException e) {
-            System.out.println("Wakeup exception");
+            System.out.println("Wakeup exception" + e.getMessage());
             // we ignore this as this is an expected exception when closing a consumer
         } catch (Exception e) {
-            System.out.println("Unexpected Exception"+ e);
+            System.out.println("Unexpected Exception"+ e.getMessage());
         } finally {
             consumer.close(); // this will also commit the offsets if need be.
             System.out.println("The consumer is now gracefully closed.");

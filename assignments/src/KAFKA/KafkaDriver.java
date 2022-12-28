@@ -9,7 +9,7 @@ import java.util.Properties;
 
 public class KafkaDriver {
 
-    private static String bootstrapServers = "10.252.1.7:9092";
+    private static String bootstrapServers = "10.252.1.7:9092,10.252.1.7:9093";
 
     public static Properties consumerProperties(String consumerGroup) {
         Properties consumerProperties = new Properties();
@@ -24,6 +24,10 @@ public class KafkaDriver {
     public static Properties producerProperties() {
         Properties producerProperties = new Properties();
         producerProperties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
+        producerProperties.setProperty(ProducerConfig.ACKS_CONFIG,"0");
+//        producerProperties.setProperty(ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION,"3");
+        producerProperties.setProperty(ProducerConfig.RETRIES_CONFIG,"3");
+        producerProperties.setProperty(ProducerConfig.BATCH_SIZE_CONFIG,"500");
         producerProperties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         producerProperties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         return producerProperties;
