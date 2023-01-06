@@ -3,6 +3,9 @@ package REDIS;
 import redis.clients.jedis.JedisPooled;
 import redis.clients.jedis.params.SetParams;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class RedisClient implements Runnable {
 
     private OperationType _operationType;
@@ -44,14 +47,15 @@ public class RedisClient implements Runnable {
 
         if (this._operationType == OperationType.READ) {
             for (int i = 0; i < this._readQuantity; i++) {
-                System.out.println(this._jedisPool.get("Sample"+i));
+                System.out.println(this._jedisPool.hgetAll("Sample"+i));
             }
         }
         if (this._operationType == OperationType.WRITE) {
             SetParams params = new SetParams();
             params.ex(this._expirationTimeSeconds);
             for (int i = 0; i < this._writeQuantity; i++) {
-                this._jedisPool.set("Sample"+i,"SAMPLE WRITE -"+i,params);
+                this._jedisPool.hset("Sample" + i,"data","Sample Data"+i);
+                        //set("Sample"+i,"SAMPLE WRITE -"+i,params);
                 System.out.println("Writing Data to Redis"+" count - " +i);
             }
         }

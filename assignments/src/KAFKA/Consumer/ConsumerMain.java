@@ -1,4 +1,4 @@
-package KAFKA;
+package KAFKA.Consumer;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,10 +19,16 @@ public class ConsumerMain {
         List<Integer> consumers = Arrays.asList(1);
 
         consumers.stream().forEach((c) -> {
-            Consumer consumer = new Consumer(c,"sample6",Arrays.asList(0,1),consumerGroup1);
+            Consumer consumer = new Consumer(c,"userVisit",Arrays.asList(0,1),consumerGroup1);
             Thread consumerThread = new Thread(consumer);
             consumerThread.start();
         });
+
+//        consumers.stream().forEach((c) -> {
+//            Consumer consumer = new Consumer(2,"sample9",Arrays.asList(0),consumerGroup1);
+//            Thread consumerhread = new Thread(consumer);
+//            consumerhread.start();
+//        });
 
         // CASE 2 - 1 topic - 1 partition - 1 - consumer group with 2 consumers
 

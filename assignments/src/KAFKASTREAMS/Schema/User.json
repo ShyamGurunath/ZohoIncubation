@@ -1,0 +1,15 @@
+{
+  "type": "object",
+  "properties": {
+    "userName": {
+      "type": "string"
+    },
+    "pageVisits": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "$ref": "UserPageVisit.json"
+      }
+    }
+  }
+}

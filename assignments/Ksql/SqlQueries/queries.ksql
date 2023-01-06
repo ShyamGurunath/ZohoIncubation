@@ -1,0 +1,40 @@
+list streams;
+list properties;
+list tables;
+list topics;
+Set 'auto.offset.rest'='earliest'
+
+
+
+select
+timestamptostring(rowtime,'dd/MMM HH:mm:ss:ms') as CreatedTime,
+userName,
+Explode(pageVisits)->page as Page,
+explode(pageVisits)->server as Server,
+timestamptostring(explode(pageVisits)->pageStartTime,'dd/MMM HH:mm:ss:ms') as StartTime,
+timestamptostring(explode(pageVisits)->pageEndTime,'dd/MMM HH:mm:ss:ms') as Endtime
+from pageVisitStream where userName LIKE 'S%';
+
+select userName,
+timestamptostring(windowstart,'dd:MM HH:mm:ss:ms') as windowstarttime
+,timestamptostring(windowend,'dd:MM HH:mm:ss:ms') as windowendtime
+from pageVisitTable;
+
+
+CREATE TYPE pageVisits Array<
+                        Struct<
+                            page Varchar,
+                            pageStartTime BIGINT,
+                            pageENDTime BIGINT,
+                            server Varchar
+                            >>;
+
+CREATE STREAM pageVisitStream (userName Varchar,pageVisits pageVisits)
+    with(KAFKA_TOPIC='topic-name',VALUE_FORMAT='JSON')
+
+
+CREATE TABLE pageVisitTable AS
+  SELECT userName,Count(*) FROM pageVisitStream
+  WINDOW Tumbling (SIZE 40 MILLISECONDS, RETENTION 100 SECONDS,Grace period 0 Seconds) Group
+ by userName
+  EMIT CHANGES;

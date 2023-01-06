@@ -1,5 +1,7 @@
-package KAFKA;
+package KAFKA.Consumer;
 
+import KAFKA.KafkaDriver;
+import KAFKASTREAMS.models.User;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -37,7 +39,7 @@ public class Consumer implements Runnable {
         System.out.println("Consumer - "+this._threadNumber+" - Started Polling Data ");
 
         // create consumer
-        KafkaConsumer<String, String> consumer = new KafkaConsumer<>(this._consumerProperties);
+        KafkaConsumer<String, User> consumer = new KafkaConsumer<>(this._consumerProperties);
 
         // List of Topic Partitions
         List<TopicPartition> topicPartitions;
@@ -62,10 +64,10 @@ public class Consumer implements Runnable {
 
             // poll for new data
             while (true) {
-                ConsumerRecords<String, String> records =
+                ConsumerRecords<String, User> records =
                         consumer.poll(Duration.ofMillis(100));
-                for (ConsumerRecord<String, String> record : records) {
-                    System.out.println("Consumer - "+ this._threadNumber+" Key: " + record.key() + ", Value: " + record.value());
+                for (ConsumerRecord<String, User> record : records) {
+                    System.out.println("Consumer - "+ this._threadNumber+" Key: " + record.key() + ", Value: " + record.value().getPageVisits());
                     System.out.println("Consumer - "+ this._threadNumber+" Partition: " + record.partition() + ", Offset:" + record.offset());
                 }
                 consumer.commitAsync();

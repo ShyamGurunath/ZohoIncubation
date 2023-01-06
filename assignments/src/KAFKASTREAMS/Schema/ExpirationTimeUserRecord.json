@@ -1,0 +1,18 @@
+{
+  "type": "object",
+  "properties": {
+    "userKey": {
+      "type": "string"
+    },
+    "expirationTimeStamp": {
+      "type": "long"
+    },
+    "pageVisits": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "$ref": "UserPageVisit.json"
+      }
+    }
+  }
+}

@@ -1,7 +1,4 @@
-package KAFKA;
-
-import java.util.Arrays;
-import java.util.List;
+package KAFKA.Producer;
 
 public class ProducerMain {
 
@@ -22,15 +19,19 @@ public class ProducerMain {
 
         // SYNC SEND Topic - Sample4
 
-            Producer producer = new Producer(1,"sample6",0, ProducerTypes.
+            Producer producer = new Producer(1,"userVisit",0, ProducerTypes.
 
-                    ASYNC,10
+                    ASYNC,25,false,41
             );
             Thread producerThread = new Thread(producer);
             producerThread.start();
 
-
-
+//        Producer producer1 = new Producer(2,"userVisit",0, ProducerTypes.
+//
+//                ASYNC,25
+//        );
+//        Thread producerThread1 = new Thread(producer1);
+//        producerThread1.start();
 
     }
 }

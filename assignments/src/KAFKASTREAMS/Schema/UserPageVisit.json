@@ -1,0 +1,9 @@
+{
+  "type": "object",
+  "properties":{
+    "page":{"type": "string"},
+    "pageStartTime": {"type": "long"},
+    "pageEndTime": {"type": "long"},
+    "server": {"type": "string"}
+  }
+}

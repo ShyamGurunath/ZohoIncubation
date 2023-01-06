@@ -1,4 +1,4 @@
-package KAFKA;
+package KAFKA.Producer;
 
 public enum ProducerTypes {
     SYNC,
