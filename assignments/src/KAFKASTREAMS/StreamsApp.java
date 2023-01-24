@@ -1,7 +1,7 @@
 package KAFKASTREAMS;
 
 
-import KAFKASTREAMS.QueryServer.Query.QueryAppServer;
+//import KAFKASTREAMS.QueryServer.Query.QueryAppServer;
 import KAFKASTREAMS.Serdes.UsersSerde.UserSerde;
 import KAFKASTREAMS.models.User;
 import org.apache.kafka.streams.*;
@@ -129,11 +129,6 @@ public class StreamsApp {
 
             //Shutdown Hook
             Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-//                try {
-//                    queryServerApp.stop();
-//                } catch (Exception e) {
-//                    throw new RuntimeException(e);
-//                }
                 streams.close();
             }));
         } catch (NullPointerException e) {

@@ -5,6 +5,8 @@ import io.confluent.ksql.api.client.Client;
 import io.confluent.ksql.api.client.ClientOptions;
 import io.confluent.ksql.api.client.Row;
 
+import java.time.Instant;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -34,7 +36,9 @@ public class PullQuery {
 
         System.out.println("Received results. Num rows: " + resultRows.size());
         for (Row row : resultRows) {
-            System.out.println("Row: " + row.values());
+            System.out.println("Time: " + Instant.ofEpochMilli(Long.parseLong(row.values().getString(1))).atZone(ZoneId.systemDefault()).toLocalDateTime());
+            System.out.println("UserName: "+row.values().getString(0));
+            System.out.println("DATA: "+row.values());
         }
 
         client.close();

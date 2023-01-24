@@ -7,8 +7,6 @@ import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
-
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -60,8 +58,8 @@ public class Producer implements Runnable {
 
             for (int y = 1; y <= 5; y++) {
                 UserPageVisit pageVisit = new UserPageVisit();
-                pageVisit.setPage(String.valueOf("Page" + y));
-                pageVisit.setServer(String.valueOf("Server" + y));
+                pageVisit.setPage("Page" + y);
+                pageVisit.setServer("Server" + y);
                 pageVisit.setPageStartTime(new Date().getTime() - TimeUnit.SECONDS.toMillis(20));
                 pageVisit.setPageEndTime(new Date().getTime() - TimeUnit.SECONDS.toMillis(10));
                 pageVisits.add(pageVisit);

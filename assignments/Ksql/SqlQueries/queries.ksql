@@ -29,12 +29,18 @@ CREATE TYPE pageVisits Array<
                             server Varchar
                             >>;
 
+
 CREATE STREAM pageVisitStream (userName Varchar,pageVisits pageVisits)
-    with(KAFKA_TOPIC='topic-name',VALUE_FORMAT='JSON')
+    with(KAFKA_TOPIC='userVisit',VALUE_FORMAT='JSON')
 
 
 CREATE TABLE pageVisitTable AS
-  SELECT userName,Count(*) FROM pageVisitStream
-  WINDOW Tumbling (SIZE 40 MILLISECONDS, RETENTION 100 SECONDS,Grace period 0 Seconds) Group
- by userName
-  EMIT CHANGES;
+SELECT userName,LATEST_BY_OFFSET(pageVisits) as pageVisits
+FROM pageVisitStream
+WINDOW Tumbling (SIZE 40 MILLISECONDS, RETENTION 100 SECONDS,Grace period 0 Seconds)
+Group by userName
+EMIT CHANGES;
+
+
+select userName,timestamptostring(windowstart,'dd:MM HH:mm:ss:ms') as WindowStartTime,timestamptostring(windowend,'dd:MM HH:mm:ss:ms') as WindowEn
+dTime  from pageVisitTable;

@@ -19,11 +19,13 @@ public class PushQuery {
 
         StreamedQueryResult streamedQueryResult = null;
 
+        System.out.println("Waiting For NewData From Table !!!!");
+
         try {
             // EMITING CHANGES FROM THE TABLE
             streamedQueryResult =
                     client.streamQuery
-                            ("SELECT COUNT(*),userName FROM pageVisitTable Group By userName EMIT CHANGES;").get();
+                            ("SELECT COUNT(userName),userName FROM pageVisitTable Group By userName EMIT CHANGES;").get();
         } catch (ExecutionException e) {
             Runtime.getRuntime().addShutdownHook(new Thread(client::close));
             throw new RuntimeException(e);

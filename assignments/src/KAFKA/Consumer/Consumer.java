@@ -2,6 +2,7 @@ package KAFKA.Consumer;
 
 import KAFKA.KafkaDriver;
 import KAFKASTREAMS.models.User;
+import REDIS.RedisClient;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
